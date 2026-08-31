@@ -1175,10 +1175,11 @@
       el.innerHTML = '<li class="empty">아직 기록이 없습니다.<br>첫 번째 심사관이 되어보세요.</li>';
       return;
     }
-    list.forEach((r) => {
+    list.forEach((r, index) => {
       const li = document.createElement('li');
       const accuracyText = Number.isFinite(Number(r.accuracy)) ? `${Number(r.accuracy)}% · 최대 ${Number(r.combo || 0)}콤보` : '';
-      li.innerHTML = `<span><span>${escapeHtml(r.name)}</span>${accuracyText ? `<small class="rank-sub">${escapeHtml(accuracyText)}</small>` : ''}</span><span class="rank-score">${Number(r.score || 0).toLocaleString()}점</span>`;
+      const rank = index + 1;
+      li.innerHTML = `<span class="rank-number" aria-label="${rank}위">${rank}위</span><span class="rank-person"><span>${escapeHtml(r.name)}</span>${accuracyText ? `<small class="rank-sub">${escapeHtml(accuracyText)}</small>` : ''}</span><span class="rank-score">${Number(r.score || 0).toLocaleString()}점</span>`;
       el.appendChild(li);
     });
   }
